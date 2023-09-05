@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            .caja {
+                background-color: blue;
+                color:yellow;
+                width:100px;
+                height:100px;
+                margin:5px;
+            }
+            #caja2{
+                position: relative;
+                left:100px;
+            }
+            #caja3{
+                position:absolute;
+                top: 150px;
+                left:200px;
+            }
+            #caja4{
+                position:fixed;
+                top:10px;
+                right:10px;
+            }
+            #caja5{
+                position:sticky;
+                top:0px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="caja" id:´caja1´>static</div>
+        <div class="caja" id:´caja2´>relative</div>
+        <div class="caja" id:´caja3´>absolute</div>
+        <div class="caja" id:´caja4´>flujo</div>
+        <div class="caja" id:´caja5´>sticky</div>
+    </body>
+</html>    
