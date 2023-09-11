@@ -15,23 +15,31 @@
             width: 100vw;
             background-color: blue;
             display: grid;
-            grid-template-columns: 200px 200px 200px;
-            grid-template-rows: 200px 200px 200px;
-            justify-content: center;
-            align-items: center;
+            grid-template-columns: 25% 75%;
+            grid-template-rows: 10% 80% 10%;
+            grid-template-areas: 'enca enca'
+            'col1 col2'
+            'pied pied';
+                                
+            /*justify-content: center;*/
+            align-items: stretch;
             justify-items: stretch;
         }
         .caja{
-            /*width: 100px;*/
-            height:100px;
+            /*width: 100px; */
+            /*height:100px; */
             background-color: aqua;
             border:1px solid blue;
         }
-        #caja1{
+        /*#caja1{
             grid-column-start: 1;
             grid-column-end: 3;
             align-self: start;
-        }
+        }*/
+        #Caja1{grid-area: enca;}
+        #Caja2{grid-area: col1;}
+        #Caja3{grid-area: col2;}
+        #Caja4{grid-area: pied;}
         
     </style>
 </head>
@@ -41,7 +49,7 @@
     <div id="Caja2" class="caja">Caja2</div>
     <div id="Caja3" class="caja">Caja3</div>
     <div id="Caja4" class="caja">Caja4</div>
-    </div>
+</div>
     
 </body>
 </html>
