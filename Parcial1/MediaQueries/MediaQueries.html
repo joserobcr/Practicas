@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin:0;
+            padding: 0;
+        }
+        .caja{
+            width:calc((100% / 3) - 20px);
+            height:100px;
+            background-color: aqua;
+            border:1px solid blue;
+            float:left;
+            color:blue;
+        }
+        /*Estilos aplicables a pantallas abajo de 900px*/
+        @media screen and (min-width:400px) and (max-width:900px){
+            #caja1,#caja2{
+                width: calc((100% / 2) - 20px);
+            }
+            #caja3{
+                clear:left;
+                width:calc(100% - 20px);
+            }
+        }
+        @media screen and (max-width:399px){
+            #caja1,
+            #caja2,
+            #caja3{
+                clear:left;
+                width: calc(100%-20px)
+            }
+        }
+        /*#caja1:hover{
+            transform: rotate(60deg);
+        }
+        #caja2:hover{
+            transform:skewY(30deg)
+        }
+        #caja3:hover{
+            transform: skew(30deg);
+        }*/
+    </style>
+</head>
+<body>
+    <div id="caja1" class="caja"></div>
+    <div id="caja2" class="caja"></div>
+    <div id="caja3" class="caja"></div>
+</body>
+</html>
