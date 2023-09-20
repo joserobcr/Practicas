@@ -1,0 +1,44 @@
+
+            :root{
+                @color-principal:orange;
+                @color-secundario:green;
+            }
+            input:checked + div#contenedor{
+                background-color: @color-secundario;
+            }
+            div#contenedor{
+                background-color: @color-principal;
+            }
+            body:has(input:checked){
+                background-color: @color-secundario;
+            }
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .parrafo{
+            color:black;
+            line-height: 1.5em;
+
+        }
+        #par1{
+            font-size: 20px;
+        }
+        #par2{
+            font-size: 20px;
+        }
+        h1{
+            margin-top: 0;
+        }
+
+        div#contenedor h1{
+            font-family:'Courier New', Courier, monospace;
+            h1{
+                color:red;
+            }
+            h2{
+                color:green;
+            }
+        }
+
