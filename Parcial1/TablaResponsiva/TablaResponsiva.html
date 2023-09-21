@@ -7,21 +7,30 @@
         <style>
             *{
                 box-sizing: border-box;
+                margin:0;
+                padding:0;
             }
-            th, td{
+            table{
+                width:100%;
+            }
+            table, thead, tbody, th, td{
                 border: 1px solid brown;
                 border-collapse: collapse;
+            }
+            tbody td:nth-child(even){
+                background-color: beige;
             }
             @media screen and (max-width:600px){
                 table.thead, tbody, tr, th, td{
                     display:block;
                 }
+                thead{
+                    display:none;
+                }
                 td{
                     padding-left: 50%;
                 }
-                th#a{
-                max-width:max-content;
-                }
+                
                 td:nth-child(1)::before{content: "Lunes";position: absolute;left: 10%;}
                 td:nth-child(2)::before{content: "Martes";position: absolute;left: 10%;}
                 td:nth-child(3)::before{content: "Miercoles";position: absolute;left: 10%;}
@@ -97,6 +106,7 @@
                 <tr><th>2:00pm-3:00pm</th><tr></tr><td>Ecuaciones Diferenciales - H301</td><td>Ecuaciones Diferenciales - H301</td><td>Ecuaciones Diferenciales - H301</td><td>Ecuaciones Diferenciales - H301</td><td>Ecuaciones Diferenciales - H301</td></tr>
             </tbody>
         </table>
+        
         
 
         
