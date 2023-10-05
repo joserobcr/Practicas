@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            width:100vw;
+            height:100vh;
+        }
+        #sidebar{
+            width:30%;
+        }
+        #content{
+            left: 30%;
+            width:70%;
+        }
+        #header{
+            border: 3px solid rgb(255, 123, 0);
+            width: 100%;
+            height: 10%;
+        }
+        .cont{
+            border:2px solid rgb(96, 221, 243);
+            background-color: rgb(212, 160, 46);
+            color:rgb(0, 0, 0);
+            float:left;
+            height: 90%;
+            position: static;
+        }
+        /*input#toggle{
+            display:none;
+        }*/
+        .sideBarEscondido{
+            display:none;
+        }
+        .contenidoAlCien{
+            width: 100% !important;
+        }
+        </style>
+    
+    </head>
+    <body>
+        <div class="cont" id="header">Header</div>
+
+        <div class="cont "id="sidebar">SideBar</div>
+        
+        <div class="cont" id="content">
+            <button id="btn" type="button">ToggleMenu</button><h3>Content</h3></div>
+
+        <script>
+            document.getElementById("btn").addEventListener("click",function(){
+                console.log("Click en el boton");
+                document.getElementById("sidebar").classList.toggle("sideBarEscondido");
+                document.getElementById("content").classList.toggle("contenidoAlCien");
+            })
+        </script>
+    </body>
+</html>
