@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin:0;
+            padding: 0;
+        }
+        .contenedor{
+            height: 100vh;
+            width: 100vw;
+            background-color: blue;
+            display: grid;
+            grid-template-columns: 200px 200px 200px;
+            grid-template-rows: 200px 200px 200px;
+            justify-content: center;
+            align-items: center;
+            justify-items: stretch;
+        }
+        .caja{
+            width: 200px;
+            height:200px;
+            background-color: green;
+            border:2px solid red;
+            font-size: 40px;
+            text-align: center;
+        }
+        #caja1{
+            grid-column-start: 1;
+            grid-column-end: 3;
+            align-self: start;
+            
+        }
+
+        #Caja11{
+            align-self: center;
+            justify-self: center;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="cont" class="contenedor">
+    <div id="Caja1" class="caja"></div>
+    <div id="Caja2" class="caja"></div>
+    <div id="Caja3" class="caja"></div>
+    <div id="Caja4" class="caja"></div>
+    <div id="Caja5" class="caja"></div>
+    <div id="Caja6" class="caja"></div>
+    <div id="Caja7" class="caja"></div>
+    <div id="Caja8" class="caja"></div>
+    <div id="Caja9" class="caja"></div>
+    <div id="Caja10"></div>
+    <div id="Caja11"><button id="btn" type="button">Limpiar</button></div>
+    <div id="Caja12"></div>
+    </div>
+    <script>
+        var xo="X";
+        document.getElementById("cont").addEventListener("click", function(e){
+            console.log(e.target.id);
+
+            if (document.getElementById(e.target.id).innerText==""){
+                if(xo=="X"){
+                    xo="O"
+                }
+                else{
+                    xo="X"
+                }
+                document.getElementById(e.target.id).innerText=xo;
+            }
+            
+        })
+        document.getElementById("btn").addEventListener("click",function(){
+            let cajas= document.getElementsByClassName("caja");
+            for(const elemento of cajas)
+            {
+                elemento.innerText="";
+            }
+        })
+    </script>
+</body>
+</html>
