@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gato</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    .board {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-gap:5px;
+        margin: 24px auto;
+        width: 300px;
+        background-color:lightblue
+    }
+
+
+    .cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 100px;
+        font-size: 24px;
+        background-color: #3d8bd4;
+    }
+
+    .status {
+        font-size: 24px;
+        margin: 20px 0;
+    }
+
+    .restart-button {
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+    </style>
+</head>
+<body>
+    <div class="board">
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+    </div>
+    <div class="status" id="status"></div>
+    <button class="restart-button" id="restart-button">Reiniciar Juego</button>
+    <script>
+        class TicTacToe {
+        constructor() {
+        this.board = ["", "", "", "", "", "", "", "", ""];
+        this.currentPlayer = "X";
+        this.isGameWon = false;
+        this.statusElement = document.getElementById("status");
+        this.restartButton = document.getElementById("restart-button");
+
+        this.cells = document.querySelectorAll("[data-cell]");
+        this.cells.forEach((cell, index) => {
+            cell.addEventListener("click", () => this.handleClick(index));
+        });
+
+        this.restartButton.addEventListener("click", () => this.restartGame());
+        this.updateStatus();
+    }
+
+    handleClick(index) {
+        if (!this.isGameWon && this.board[index] === "") {
+            this.board[index] = this.currentPlayer;
+            this.cells[index].textContent = this.currentPlayer;
+            this.checkWin();
+            this.togglePlayer();
+            this.updateStatus();
+        }
+    }
+
+    togglePlayer() {
+        this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
+    }
+
+    checkWin() {
+        const winningCombinations = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        for (const combination of winningCombinations) {
+            const [a, b, c] = combination;
+            if (this.board[a] && this.board[a] === this.board[b] && this.board[a] === this.board[c]) {
+                this.isGameWon = true;
+                this.statusElement.textContent = `¡${this.currentPlayer} ha ganado!`;
+                return;
+            }
+        }
+
+        if (!this.board.includes("") && !this.isGameWon) {
+            this.statusElement.textContent = "¡Empate!";
+        }
+    }
+
+    updateStatus() {
+        if (this.isGameWon) {
+            this.statusElement.textContent = `¡${this.currentPlayer} ha ganado!`;
+        } else {
+            this.statusElement.textContent = `Turno de ${this.currentPlayer}`;
+        }
+    }
+
+    restartGame() {
+        this.board = ["", "", "", "", "", "", "", "", ""];
+        this.currentPlayer = "X";
+        this.isGameWon = false;
+        this.cells.forEach((cell) => {
+            cell.textContent = "";
+        });
+        this.updateStatus();
+    }
+}
+
+    const ticTacToe = new TicTacToe();
+    </script>
+</body>
+</html>
+
