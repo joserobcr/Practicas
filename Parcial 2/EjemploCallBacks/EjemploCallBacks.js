@@ -6,4 +6,4 @@ let mensaje = function(){
     console.log("Otro mensaje...");
 };
 
-setTimeout(mensaje, 3500);
+setTimeout(mensaje, 3000);
