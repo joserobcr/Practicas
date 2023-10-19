@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Peticion</title>
+    </head>
+    <body>
+        <button id="btn">Peticion XmlHTTPRequest</button>
+        <div id="Chuck"></div>
+        <script>
+            document.getElementById("btn").addEventListener("click", () => {
+
+            const xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", function(){
+                if (this.readyState===this.DONE){
+                    console.log(this.responseText);
+
+                    let objetoRespuesta=JSON.parse(this.responseText);
+                    console.log(objetoRespuesta.value);
+                    document.getElementById("Chuck").innerText=objetoRespuesta.value;
+                }
+            });
+            xhr.open("GET", "https://api.chucknorris.io/jokes/random");
+
+            xhr.send();
+            })
+        </script>
+    </body>
+</html>
