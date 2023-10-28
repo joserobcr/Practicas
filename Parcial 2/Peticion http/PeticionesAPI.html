@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            img{
+                height: 300px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>waifu generator</h1>
+        <button id="btn" >click me!</button>
+        <div>
+            <img src="" alt="" id="img">
+        </div>
+        <script>
+            document.getElementById("btn").addEventListener("click", function(){
+                const xhr=new XMLHttpRequest();
+
+                xhr.addEventListener("readystatechange", function(){
+                    if(this.readyState===this.DONE){
+                        console.log(this.responseText);
+                        let objetoRespuesta=JSON.parse(this.responseText);
+                        let img=document.getElementById("img").src=objetoRespuesta.url;
+                        console.log(objetoRespuesta.url);
+                    }
+                    
+                });xhr.open("GET", 'https://api.waifu.pics/sfw/cry');
+                xhr.send();
+            })
+        </script>
+    </body>
+</html>
