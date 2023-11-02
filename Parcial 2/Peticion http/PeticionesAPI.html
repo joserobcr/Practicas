@@ -1,36 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <style>
-            img{
-                height: 300px;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>waifu generator</h1>
-        <button id="btn" >click me!</button>
-        <div>
-            <img src="" alt="" id="img">
-        </div>
-        <script>
-            document.getElementById("btn").addEventListener("click", function(){
-                const xhr=new XMLHttpRequest();
 
-                xhr.addEventListener("readystatechange", function(){
-                    if(this.readyState===this.DONE){
-                        console.log(this.responseText);
-                        let objetoRespuesta=JSON.parse(this.responseText);
-                        let img=document.getElementById("img").src=objetoRespuesta.url;
-                        console.log(objetoRespuesta.url);
-                    }
-                    
-                });xhr.open("GET", 'https://api.waifu.pics/sfw/cry');
-                xhr.send();
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            height: 300px;
+        }
+        body{
+            background-size: contain;
+            
+            background-image: url(https://t2.uc.ltmcdn.com/es/posts/4/6/1/que_significa_sonar_con_lluvia_51164_orig.jpg);
+            
+        }
+        #btn1,#btn2,#btn3,#btn4,#btn5 {
+            color: black;
+            background-color: gray;
+            width: 150px;
+            height: 75px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 15px;
+        }
+        h1{
+            text-align: center;
+            color:white;
+        }
+        
+    </style>    
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1>Waifu generator</h1>
+    <button id="btn1">XMLHttpRequest</button>
+    <button id="btn2">Fetch</button>
+    <button id="btn3">Async</button>
+    <button id="btn4">AX</button>
+    <button id="btn5">JQuery</button>
+    <div>
+        <img src="" alt="" id="img">
+    </div>
+    <script>
+        document.getElementById("btn1").addEventListener("click", function () {
+            const xhr = new XMLHttpRequest();
+            /*if (this.readyState === 4 && this.status === 200) {*/
+            xhr.addEventListener("load", function () {
+                if (this.readyState === this.DONE) {
+                    console.log(this.responseText);
+                    let objetoRespuesta = JSON.parse(this.responseText);
+                    document.getElementById("img").src = objetoRespuesta.url;
+                    console.log(objetoRespuesta.url);
+                }
+            });
+
+            xhr.open("GET", 'https://api.waifu.pics/sfw/cry');
+            xhr.send();
+        });
+
+        document.getElementById("btn2").addEventListener("click", () => {
+            fetch("https://api.waifu.pics/sfw/cry")
+                .then(response => response.json())
+                .then(data => document.getElementById("img").src = data.url);
+        });
+
+        document.getElementById("btn3").addEventListener("click", async () => {
+
+            let objRespuesta = await fetch("https://api.waifu.pics/sfw/cry");
+            let datoJson = await objRespuesta.json();
+            document.getElementById("img").src = datoJson.value
+        });
+
+        document.getElementById("btn4").addEventListener("click", async () => {
+            axios({
+                method: 'get',
+                url: 'https://api.waifu.pics/sfw/cry',
+                responseType: 'json'
             })
-        </script>
-    </body>
-</html>
+                .then(function (datoJson) {
+                    console.log(datoJson);
+                    document.getElementById("img").src = datoJson.data.value
+                });
+        });
+        
+        $(document).ready(function () {
+            document.getElementById("btn5").addEventListener("click", () => {
+                $.getJSON("https://api.waifu.pics/sfw/cry", function (datoJson) {
+                    document.getElementById("img").src = datoJson.value
+                });
+            });
+        });
+    </script>
+</body>
