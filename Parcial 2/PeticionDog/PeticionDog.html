@@ -1,38 +1,42 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <select id="razas"></select>
-    <button id="peticion">Peticion</button>
-    <img src="">
+    <button id="Peticion">Petición</button>
+    <img id="imagenPerro">
+
     <script>
-        window.onload=function(){
         fetch("https://dog.ceo/api/breeds/list/all")
-        .then(respuesta=>respuesta.json())
-        .then(function(dato){
-            for (const propiedad in dato.message) {
-                console.log(dato.message);
-                let opcion=document.createElement("Opcion");
-                opcion.value=propiedad;
-                opcion.innerText=propiedad;
-                document.getElementById("razas").appendChild(opcion);           
+            .then(respuesta => respuesta.json())
+            .then(function (dato) {
+
+                for (const propiedad in dato.message) {
+                    if (Object.hasOwnProperty.call(dato.message, propiedad)) {
+                        let opc = document.createElement("option");
+                        opc.value = propiedad;
+                        opc.innerText = propiedad;
+                        document.getElementById("razas").appendChild(opc);
+                    }
                 }
-            
-            });
-        }
-           document.getElementById("Peticiones").addEventListener("click", ()=>{
-           let opcion=document.getElementById("razas").value;
-           fetch("https://dog.ceo/api/breed/hound/images/random")
-           .then(respuesta=>respuestas.json())
-           .then(function(dato){
-            document.getElementById("fotoperro").src=dato.message;
-           })
-        });
+            })
+
+        document.getElementById("Peticion").addEventListener("click", () => {
+            let option = document.getElementById("razas").value;
+
+            fetch(`https://dog.ceo/api/breed/${option}/images/random`)
+                .then(respuesta => respuesta.json())
+                .then(function (dato) {
+                    let img = document.getElementById("imagenPerro"); 
+                    img.src = dato.message;
+                })
+        })
     </script>
 </body>
 </html>
