@@ -10,7 +10,7 @@ const connection = mysql2.createConnection({
     port:'3306',
     user: 'root',
     password:'neymar2003',
-    database: 'Alumnos'
+    database: 'Canciones'
 })
 connection.connect(function(error){
     if(error){
@@ -20,16 +20,16 @@ connection.connect(function(error){
     }
 })
 
-app.get('/alumnos',(req,res)=>{//consulta en el diagonal el nombre de la tabla
+app.get('/canciones',(req,res)=>{//consulta en el diagonal el nombre de la tabla
     console.log(req.query.idAlumnos);
 
     let consulta=''
     if(typeof(req.query.idAlumnos)==='undefined')
     {
-        consulta='select * from alumnos'
+        consulta='select * from canciones'
     }
     else{
-        consulta=`select * from alumnos where idAlumnos=${req.query.idAlumnos}`
+        consulta=`select * from canciones where Top=${req.query.Top}`
     }
     console.log(consulta)
 
@@ -42,7 +42,7 @@ app.get('/alumnos',(req,res)=>{//consulta en el diagonal el nombre de la tabla
             //console.log(results);//array de objetos
             if(results.length==0)
           {
-            res.json({mensaje:"idAlumnos no existe"});
+            res.json({mensaje:"Top no existe"});
           }else{
             res.json(results);
           }
@@ -60,5 +60,5 @@ app.delete('/',(req,res)=>{//alta
 });
 
 app.listen(8085,(req,res)=>{
-    console.log("Servidor express corriendo en  puerto 8082")
+    console.log("Servidor express corriendo en  puerto 8085")
 });
