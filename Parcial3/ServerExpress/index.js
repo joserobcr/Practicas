@@ -20,7 +20,7 @@ connection.connect(function(error){
     }
 })
 
-/*app.get('/canciones',(req,res)=>{
+app.get('/canciones',(req,res)=>{
     console.log(req.query.Top);
 
     let consulta=''
@@ -53,8 +53,8 @@ connection.connect(function(error){
         
         }
     )
-});*/
-app.get('/canciones',(req,res)=>{
+});
+/*app.get('/canciones',(req,res)=>{
     console.log(req.query.Top);
 
     let consulta=''
@@ -79,7 +79,7 @@ app.get('/canciones',(req,res)=>{
         
         }
     )
-});
+});*/
 
 app.post('/',(req,res)=>{//alta
     res.json({ mensaje:"Servidor Express respondiendo a post"});

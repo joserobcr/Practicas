@@ -1,26 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
 <body>
-    <button type="button" id="btn_Peticion">Peticion</button>
+    <form>
+        <label for="Top">Top</label>
+        <input type="text" id="Top">
+
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre">
+
+        <label for="artistas">Artistas</label>
+        <input type="text" id="artistas">
+
+        <label for="duracion">Duracion</label>
+        <input type="text" id="duracion">
+    </form>
+    <button type="button" id="btn_Peticion">Consulta</button>
     <script>
         document.getElementById("btn_Peticion").addEventListener("click", async () => {
+            let top=prompt("Top de la cancion");
+            let response = await fetch(`http://localhost:8085/canciones?Top=${top}`);
 
-            let response = await fetch("http://localhost:8082", {
-                method: "GET"
-            });
-
-            let data = await response.text();
+            let data = await response.json();
             console.log(data);
 
+            if(data.status==0){
+                alert(data.mensaje)
+            }{
+                console.log(data.datos);
+                document.getElementById("nombre").value=data.datos.nombre;
+            }{
+                console.log(data.datos);
+                document.getElementById("Top").value=data.datos.Top;
+            }{
+                console.log(data.datos);
+                document.getElementById("artistas").value=data.datos.artistas;
+            }{
+                console.log(data.datos);
+                document.getElementById("duracion").value=data.datos.duracion;
+            }
         })
     </script>
 </body>
-
 </html>
