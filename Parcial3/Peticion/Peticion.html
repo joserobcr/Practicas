@@ -4,45 +4,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    align-content: center;
+    justify-content: center;
+    }
+        label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    }
+        form {
+    max-width: 400px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    }
+
+    input{
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+    </style>
 </head>
 <body>
-    <form>
-        <label for="Top">Top</label>
-        <input type="text" id="Top">
+    
+    <form id="formulario">
+        <label for="Top" id="LTop">Top</label>
+        <input type="text" name="Top" id="Top">
 
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre">
+        <label for="nombre" id="Lname">Nombre</label>
+        <input type="text" name="nombre" id="nombre">
 
-        <label for="artistas">Artistas</label>
-        <input type="text" id="artistas">
+        <label for="artistas" id="Lartistas">Artistas</label>
+        <input type="text" name="artistas" id="artistas">
 
-        <label for="duracion">Duracion</label>
-        <input type="text" id="duracion">
+        <label for="duracion" id="Lduracion">Duracion</label>
+        <input type="text" name="duracion" id="duracion">
     </form>
     <button type="button" id="btn_Peticion">Consulta</button>
+    <button type="button" id="btn_Delete">Eliminar</button>
+    <button type="button" id="btn_Insertar">Insertar</button>
+    <button type="button" id="btn_Modificar">Modificar</button>
+    <button type="button" id="btn_pdf">Generar pdf</button>
+
     <script>
-        document.getElementById("btn_Peticion").addEventListener("click", async () => {
-            let top=prompt("Top de la cancion");
+    document.getElementById("btn_Peticion").addEventListener("click", async () => {
+    let top = prompt("Top de la canción");
+    let response = await fetch(`http://localhost:8085/canciones?Top=${top}`);
+    let data = await response.json();
+    console.log(data);
+
+    if (data.status === 0) {
+        alert(data.mensaje);
+    } else if (data.datos.length === 0) {
+        alert("El Top especificado no existe.");
+    } else {
+        console.log(data);
+        document.getElementById("nombre").value = data.datos[0].nombre;
+        document.getElementById("Top").value = data.datos[0].Top;
+        document.getElementById("artistas").value = data.datos[0].artistas;
+        document.getElementById("duracion").value = data.datos[0].duracion;
+    }
+});
+
+        document.getElementById("btn_Delete").addEventListener("click", async () => {
+        let top = prompt("Top de la canción que desea eliminar");
+        if (top === null) {
+            throw new Error('Prompt vacío o cancelado');
+        } else {
+            let response = await fetch(`http://localhost:8085/canciones?Top=${top}`, {
+                method: "DELETE"
+            });
+            let data = await response.text();
+        }
+    });
+
+    document.getElementById("btn_Insertar").addEventListener("click", async () => {
+    let datos = new FormData();
+    datos.append('Top', document.getElementById("Top").value)
+    datos.append('nombre', document.getElementById("nombre").value)
+    datos.append('artistas', document.getElementById("artistas").value)
+    datos.append('duracion', document.getElementById("duracion").value)
+
+    console.log(datos.get('Top'))
+    console.log(datos.get('nombre'))
+    console.log(datos.get('artistas'))
+    console.log(datos.get('duracion'))
+
+
+    let response = await fetch("http://localhost:8085/canciones",
+        {
+            method: "POST",
+            body: datos
+        });
+    let data = await response.text();
+    console.log(data);
+})
+
+        document.getElementById("btn_pdf").addEventListener("click", async ()=>{
             let response = await fetch(`http://localhost:8085/canciones?Top=${top}`);
-
             let data = await response.json();
-            console.log(data);
-
-            if(data.status==0){
-                alert(data.mensaje)
-            }{
-                console.log(data.datos);
-                document.getElementById("nombre").value=data.datos.nombre;
-            }{
-                console.log(data.datos);
-                document.getElementById("Top").value=data.datos.Top;
-            }{
-                console.log(data.datos);
-                document.getElementById("artistas").value=data.datos.artistas;
-            }{
-                console.log(data.datos);
-                document.getElementById("duracion").value=data.datos.duracion;
-            }
         })
     </script>
 </body>
