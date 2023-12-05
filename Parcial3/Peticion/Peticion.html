@@ -53,7 +53,7 @@ html{
     <div>
     <form id="formulario">
         <label for="Top" id="LTop">Top</label>
-        <input type="text" name="Top" id="Top" placeholder="Top">
+        <input type="text" name="Top" id="Top" placeholder="Top" readonly>
 
         <label for="nombre" id="Lname">Nombre</label>
         <input type="text" name="nombre" id="nombre" placeholder="Nombre de la cancion">
@@ -74,7 +74,7 @@ html{
     <script>
     document.getElementById("btn_Peticion").addEventListener("click", async () => {
     let top = prompt("Top de la canción");
-    let response = await fetch(`http://localhost:8083/canciones?Top=${top}`);
+    let response = await fetch(`http://localhost:8080/canciones?Top=${top}`);
     let data = await response.json();
     console.log(data);
     console.log(data.length);
@@ -97,7 +97,7 @@ document.getElementById("btn_Delete").addEventListener("click", async () => {
             let top = prompt("Top de la canción que desea eliminar");
             if (top !== null) {
                 try {
-                    const response = await fetch(`http://localhost:8083/canciones?Top=${top}`, {
+                    const response = await fetch(`http://localhost:8080/canciones?Top=${top}`, {
                         method: "DELETE"
                     });
 
@@ -128,7 +128,7 @@ document.getElementById("btn_Delete").addEventListener("click", async () => {
     console.log(datos.get('artistas'))
     console.log(datos.get('duracion'))
 
-    let response = await fetch("http://localhost:8083/canciones",
+    let response = await fetch("http://localhost:8080/canciones",
         {
             method: "POST",
             headers:{'Content-Type':'application/x-www-form-urlencoded'},
@@ -144,7 +144,7 @@ let nombre= document.getElementById("nombre").value;
 let artistas = document.getElementById("artistas").value;
 let duracion = document.getElementById("duracion").value;
 
-await fetch(`http://localhost:8083/canciones?Top=${Top}&nombre=${nombre}&artistas=${artistas}&duracion=${duracion}`, {method:"PUT"})
+await fetch(`http://localhost:8080/canciones?Top=${Top}&nombre=${nombre}&artistas=${artistas}&duracion=${duracion}`, {method:"PUT"})
 .then(response => response.json())
 .then(data => {
     if (data.status===1){
@@ -168,7 +168,7 @@ document.getElementById("btn_pdf").addEventListener("click", async () => {
     };
 
     try {
-        const response = await fetch("http://localhost:8083/canciones/formato", {
+        const response = await fetch("http://localhost:8080/canciones/formato", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -186,21 +186,6 @@ document.getElementById("btn_pdf").addEventListener("click", async () => {
     } catch (error) {
         console.error(error);
     }
-    
-    /*let datos = new FormData();
-            datos.append('Top', document.getElementById("Top").value);
-            datos.append('nombre', document.getElementById("nombre").value);
-            datos.append('artistas', document.getElementById("artistas").value);
-            datos.append('duracion', document.getElementById("duracion").value);
-
-            let response = await fetch("http://localhost:8083/canciones/formato", {
-                method: "POST",
-                body: datos
-            });
-
-            let blob = await response.blob();
-            let archivoPDF = URL.createObjectURL(blob);
-            window.open(archivoPDF);*/
 });
 
 function borrarDatos() {
