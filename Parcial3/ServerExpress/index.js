@@ -80,7 +80,7 @@ app.delete('/canciones', async (req, res) => {
 app.post('/canciones', async (req, res) => {
     const { nombre, artistas, duracion } = req.body;
 
-    if (!nombre || !artistas || !duracion) {
+    if (!nombre.trim() || !artistas.trim() || !duracion.trim()) {
         return res.status(400).json({ error: "Todos los campos son obligatorios: nombre, artistas y duracion." });
     }
 
